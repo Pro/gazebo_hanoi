@@ -28,7 +28,7 @@
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <mesh filename="package://edo_games/meshes/towers_of_hanoi/hanoi-board.STL"/>
+                    <mesh filename="package://gazebo_hanoi/meshes/towers_of_hanoi/hanoi-board.STL"/>
                 </geometry>
                 <material name="Brown"/>
             </visual>
@@ -36,7 +36,7 @@
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <mesh filename="package://edo_games/meshes/towers_of_hanoi/hanoi-board.STL"/>
+                    <mesh filename="package://gazebo_hanoi/meshes/towers_of_hanoi/hanoi-board.STL"/>
                 </geometry>
                 <material name="Brown"/>
             </collision>
