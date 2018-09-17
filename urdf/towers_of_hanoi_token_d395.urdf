@@ -12,21 +12,22 @@
             <inertia  ixx="0.000037134" ixy="0.0"  ixz="0.0"  iyy="0.000037134"  iyz="0.0"  izz="0.000071804" />
         </inertial>
         <visual>
-            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <origin rpy="0 0 0" xyz="0 0 0.0036"/>
             <geometry>
-                <mesh filename="package://edo_games/meshes/towers_of_hanoi/token-39.5.STL" />
+                <box size="0.0395 0.0395 0.0067"/>
             </geometry>
-            <material name="orange"/>
+            <material name="purple"/>
         </visual>
         <collision>
-            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <origin rpy="0 0 0" xyz="0 0 0.0036"/>
             <geometry>
-                <mesh filename="package://edo_games/meshes/towers_of_hanoi/token-39.5.STL" />
+                <box size="0.0395 0.0395 0.0067"/>
             </geometry>
         </collision>
     </link>
     <gazebo reference="token_d395_link">
-        <dampingFactor>0.5</dampingFactor>
+        <maxVel>0.0</maxVel>
+        <minDepth>0.0001</minDepth>
         <material>Gazebo/Orange</material>
     </gazebo>
 
