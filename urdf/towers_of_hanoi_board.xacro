@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find edo_description)/urdf/utilities.xacro" />
+
+    <xacro:macro name="towers_of_hanoi_board" params="parent board_name *origin">
+
+        <!--joint between {parent} and base_link-->
+        <joint name="${parent}_${board_name}_joint" type="fixed">
+            <xacro:insert_block name="origin"/>
+            <parent link="${parent}"/>
+            <child link="${board_name}_base_link"/>
+        </joint>
+
+        <link name="${board_name}_base_link">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="0.07"/>
+                <inertia
+                        ixx="0"
+                        ixy="0"
+                        ixz="0"
+                        iyy="0"
+                        iyz="0"
+                        izz="0" />
+            </inertial>
+
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://edo_games/meshes/towers_of_hanoi/hanoi-board.STL"/>
+                </geometry>
+                <material name="Brown"/>
+            </visual>
+
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://edo_games/meshes/towers_of_hanoi/hanoi-board.STL"/>
+                </geometry>
+                <material name="Brown"/>
+            </collision>
+
+        </link>
+        <gazebo reference="${board_name}_base_link">
+            <material>Gazebo/Wood</material>
+        </gazebo>
+
+    </xacro:macro>
+
+</robot>

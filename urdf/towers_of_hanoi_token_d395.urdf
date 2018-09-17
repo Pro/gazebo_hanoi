@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot name="token_d395">
+
+    <material name="orange">
+        <color rgba="1 0.65 0 1"/>
+    </material>
+
+    <link name="token_d395_link">
+        <inertial>
+            <origin xyz="0 0 0.0036"/>
+            <mass value="0.35" />
+            <inertia  ixx="0.000037134" ixy="0.0"  ixz="0.0"  iyy="0.000037134"  iyz="0.0"  izz="0.000071804" />
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://edo_games/meshes/towers_of_hanoi/token-39.5.STL" />
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://edo_games/meshes/towers_of_hanoi/token-39.5.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <gazebo reference="token_d395_link">
+        <dampingFactor>0.5</dampingFactor>
+        <material>Gazebo/Orange</material>
+    </gazebo>
+
+</robot>

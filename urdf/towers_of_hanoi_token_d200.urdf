@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot name="token_d200">
+
+    <material name="purple">
+        <color rgba="0.5 0 0.5 1"/>
+    </material>
+
+    <link name="token_d200_link">
+        <inertial>
+            <origin xyz="0 0 0.0036"/>
+            <mass value="0.1" />
+            <inertia  ixx="0.000003358" ixy="0.0"  ixz="0.0"  iyy="0.000003358"  iyz="0.0"  izz="0.000006012" />
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://edo_games/meshes/towers_of_hanoi/token-20.STL" />
+            </geometry>
+            <material name="purple"/>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://edo_games/meshes/towers_of_hanoi/token-20.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <gazebo reference="token_d200_link">
+        <dampingFactor>0.5</dampingFactor>
+        <material>Gazebo/Purple</material>
+    </gazebo>
+
+</robot>

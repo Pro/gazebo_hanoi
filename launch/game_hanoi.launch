@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="sim" default="true"/>
+    <arg name="paused" default="false" doc="Starts gazebo in paused mode" />
+
+    <!-- Game board position -->
+    <!-- Coordinates are calculated by rotating a 2D Vector with length=the distance from the base (i.e. 41cm) by -60 degree.
+    See:
+    https://www.desmos.com/calculator/jrs6w6i56g
+    -->
+    <arg name="board_x" default="0.355070415552" />
+    <arg name="board_y" default="0.205" />
+    <arg name="board_z" default="0.035" />
+    <arg name="board_R" default="0" />
+    <arg name="board_P" default="0" />
+    <arg name="board_Y" default="-1.0472" />
+
+    <group if="$(arg sim)">
+
+        <include file="$(find gazebo_ros)/launch/empty_world.launch">
+            <arg name="world_name" default="$(find gazebo_hanoi)/worlds/edo.world"/>
+            <arg name="paused" value="true"/>
+        </include>
+
+        <!-- Spawn game board -->
+        <param name="board_description"
+               command="$(find xacro)/xacro.py '$(find gazebo_hanoi)/urdf/towers_of_hanoi_board.urdf.xacro' origin_xyz:='$(arg board_x) $(arg board_y) $(arg board_z)' origin_rpy:='$(arg board_R) $(arg board_P) $(arg board_Y)'" />
+        <node name="spawn_board" pkg="gazebo_ros" type="spawn_model" args="-urdf -param board_description -model towers_of_hanoi_board" respawn="false" output="screen" />
+
+        <!--   Spawn tokens board -->
+        <node name="spawn_token_d520"  pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d520.urdf -wait towers_of_hanoi_board -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d520  -x 0.0615 -y 0 -z 0.02" respawn="false" output="screen" />
+        <node name="spawn_token_d460"  pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d460.urdf -wait token_d520 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d460  -x 0.0615 -y 0 -z 0.03" respawn="false" output="screen" />
+        <node name="spawn_token_d395"  pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d395.urdf -wait token_d460 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d395  -x 0.0615 -y 0 -z 0.04" respawn="false" output="screen" />
+        <node name="spawn_token_d375"  pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d375.urdf -wait token_d395 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d375  -x 0.0615 -y 0 -z 0.05" respawn="false" output="screen" />
+        <node name="spawn_token_d340"  pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d340.urdf -wait token_d375 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d340  -x 0.0615 -y 0 -z 0.06" respawn="false" output="screen" />
+        <node name="spawn_token_d295"  pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d295.urdf -wait token_d340 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d295  -x 0.0615 -y 0 -z 0.07" respawn="false" output="screen" />
+        <node name="spawn_token_d240"  pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d240.urdf -wait token_d295 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d240  -x 0.0615 -y 0 -z 0.08" respawn="false" output="screen" />
+        <node name="spawn_token_d200"  pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d200.urdf -wait token_d240 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d200  -x 0.0615 -y 0 -z 0.09" respawn="false" output="screen" />
+    </group>
+
+    <node pkg="tf2_ros" type="static_transform_publisher" name="towers_of_hanoi_tf_broadcaster" args="$(arg board_x) $(arg board_y) $(arg board_z) $(arg board_Y) $(arg board_P) $(arg board_R) world towers_of_hanoi_board_link" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="towers_of_hanoi_place_left_tf_broadcaster" args="-0.0615 0 0.09 0 0 0 towers_of_hanoi_board_link towers_of_hanoi_place_left" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="towers_of_hanoi_place_center_tf_broadcaster" args="0 0 0.09 0 0 0 towers_of_hanoi_board_link towers_of_hanoi_place_center" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="towers_of_hanoi_place_right_tf_broadcaster" args="0.0615 0 0.09 0 0 0 towers_of_hanoi_board_link towers_of_hanoi_place_right" />
+
+    <group unless="$(arg sim)">
+        <!-- In real world we do not have the transform to the robot base, so publish it here -->
+        <node pkg="tf2_ros" type="static_transform_publisher" name="towers_of_hanoi_edo_tf_broadcaster" args="0 0 0 0 0 0 world edo_base_link " />
+    </group>
+
+</launch>

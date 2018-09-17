@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot name="token_d340">
+
+    <material name="green">
+        <color rgba="0 1 0 1"/>
+    </material>
+
+    <link name="token_d340_link">
+        <inertial>
+            <origin xyz="0 0 0.0036"/>
+            <mass value="0.25" />
+            <inertia  ixx="0.000020208" ixy="0.0"  ixz="0.0"  iyy="0.000020208"  iyz="0.0"  izz="0.000038656" />
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://edo_games/meshes/towers_of_hanoi/token-34.STL" />
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://edo_games/meshes/towers_of_hanoi/token-34.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <gazebo reference="token_d340_link">
+        <dampingFactor>0.5</dampingFactor>
+        <material>Gazebo/Green</material>
+    </gazebo>
+
+</robot>

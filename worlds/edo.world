@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <!-- We use a custom world for the edo so that the camera angle is launched correctly. -->
+  <!-- One can change this world to his needs or use another one. -->
+
+  <world name="default">
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- Global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- Focus camera -->
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose frame=''>0.780314 0.200912 0.263911 0 0.521796 3.00019</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+
+  </world>
+
+</sdf>
