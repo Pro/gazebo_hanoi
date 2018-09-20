@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+    <xacro:property name="color" value="White" />
+    <xacro:property name="diameter" value="0.052" />
+    <xacro:property name="hole_diameter" value="0.01" />
+    <xacro:property name="height" value="0.072" />
+    <xacro:property name="name" value="520" />
+    <!-- mass in KG -->
+    <xacro:property name="mass" value="0.1" />
+
+    <xacro:macro name="hanoi_token" params="name mass height color diameter hole_diameter">
+
+
+        <xacro:property name="box_width" value="${(diameter - hole_diameter) / 2}" />
+        <xacro:property name="box_center" value="${(box_width + hole_diameter) / 2}" />
+
+        <link name="token_d${name}_link">
+            <inertial>
+                <origin xyz="0 0 ${height / 2}"/>
+                <mass value="${ mass }" />
+                <!-- See https://www.amesweb.info/SectionalPropertiesTabs/Mass-Moment-Inertia-Hollow-Cylinder-Shaft.aspx -->
+                <inertia  ixx="${(mass / 12) * ( 3 * ( (diameter / 2) * (diameter / 2) + (hole_diameter / 2) * (hole_diameter / 2)) + (height * height))}"
+                          ixy="0.0"  ixz="0.0"
+                          iyy="${(mass / 12) * ( 3 * ( (diameter / 2) * (diameter / 2) + (hole_diameter / 2) * (hole_diameter / 2)) + (height * height))}"
+                          iyz="0.0"
+                          izz="${(mass / 2) * ( (diameter / 2) * (diameter / 2) + (hole_diameter / 2) * (hole_diameter / 2) )}" />
+            </inertial>
+            <visual>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://gazebo_hanoi/meshes/towers_of_hanoi/token-${name}.STL" />
+                </geometry>
+                <material name="${color}"/>
+            </visual>
+            <collision name="collision_d${name}_b1">
+                <origin rpy="0 0 0" xyz="0 ${box_center} ${height / 2}"/>
+                <geometry>
+                    <box size="${diameter} ${box_width} ${height}"/>
+                </geometry>
+            </collision>
+            <collision name="collision_d${name}_b2">
+                <origin rpy="0 0 0" xyz="0 -${box_center} ${height / 2}"/>
+                <geometry>
+                    <box size="${diameter} ${box_width} ${height}"/>
+                </geometry>
+            </collision>
+            <collision name="collision_d${name}_b3">
+                <origin rpy="0 0 0" xyz="-${box_center} 0 ${height / 2}"/>
+                <geometry>
+                    <box size="${box_width} ${hole_diameter} ${height}"/>
+                </geometry>
+            </collision>
+            <collision name="collision_d${name}_b4">
+                <origin rpy="0 0 0" xyz="${box_center} 0 ${height / 2}"/>
+                <geometry>
+                    <box size="${box_width} ${hole_diameter} ${height}"/>
+                </geometry>
+            </collision>
+
+        </link>
+        <gazebo reference="token_d${name}_link">
+            <minDepth>0.001</minDepth>
+            <maxVel>0.01</maxVel>
+            <kp>1e8</kp>
+            <kd>1</kd>
+            <dampingFactor>0.8</dampingFactor>
+            <material>Gazebo/${color}</material>
+        </gazebo>
+
+    </xacro:macro>
+</robot>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot name="token_d520" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find gazebo_hanoi)/urdf/materials.xacro" />
+    <!--Import the hanoi_token macro -->
+    <xacro:include filename="$(find gazebo_hanoi)/urdf/hanoi_token.xacro"/>
+
+    <xacro:hanoi_token name="520" diameter="0.052" hole_diameter="0.0095" height="0.0072" color="Purple" mass="0.45">
+    </xacro:hanoi_token>
+
+</robot>
+
+

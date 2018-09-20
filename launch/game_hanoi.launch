@@ -19,7 +19,7 @@
 
         <include file="$(find gazebo_ros)/launch/empty_world.launch">
             <arg name="world_name" default="$(find gazebo_hanoi)/worlds/edo.world"/>
-            <arg name="paused" value="true"/>
+            <arg name="paused" value="false"/>
         </include>
 
         <!-- Spawn game board -->
@@ -27,15 +27,24 @@
                command="$(find xacro)/xacro.py '$(find gazebo_hanoi)/urdf/towers_of_hanoi_board.urdf.xacro' origin_xyz:='$(arg board_x) $(arg board_y) $(arg board_z)' origin_rpy:='$(arg board_R) $(arg board_P) $(arg board_Y)'" />
         <node name="spawn_board" pkg="gazebo_ros" type="spawn_model" args="-urdf -param board_description -model towers_of_hanoi_board" respawn="false" output="screen" />
 
+        <param name="hanoi_token_d520" command="$(find xacro)/xacro.py '$(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d520.urdf.xacro'" />
+        <param name="hanoi_token_d460" command="$(find xacro)/xacro.py '$(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d460.urdf.xacro'" />
+        <param name="hanoi_token_d395" command="$(find xacro)/xacro.py '$(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d395.urdf.xacro'" />
+        <param name="hanoi_token_d375" command="$(find xacro)/xacro.py '$(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d375.urdf.xacro'" />
+        <param name="hanoi_token_d340" command="$(find xacro)/xacro.py '$(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d340.urdf.xacro'" />
+        <param name="hanoi_token_d295" command="$(find xacro)/xacro.py '$(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d295.urdf.xacro'" />
+        <param name="hanoi_token_d240" command="$(find xacro)/xacro.py '$(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d240.urdf.xacro'" />
+        <param name="hanoi_token_d200" command="$(find xacro)/xacro.py '$(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d200.urdf.xacro'" />
+
         <!--   Spawn tokens board -->
-        <node name="spawn_token_d520"  pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d520.urdf -wait towers_of_hanoi_board -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d520  -x 0.0615 -y 0 -z 0.02" respawn="false" output="screen" />
-        <node name="spawn_token_d460"  pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d460.urdf -wait token_d520 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d460  -x 0.0615 -y 0 -z 0.03" respawn="false" output="screen" />
-        <node name="spawn_token_d395"  pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d395.urdf -wait token_d460 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d395  -x 0.0615 -y 0 -z 0.04" respawn="false" output="screen" />
-        <node name="spawn_token_d375"  pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d375.urdf -wait token_d395 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d375  -x 0.0615 -y 0 -z 0.05" respawn="false" output="screen" />
-        <node name="spawn_token_d340"  pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d340.urdf -wait token_d375 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d340  -x 0.0615 -y 0 -z 0.06" respawn="false" output="screen" />
-        <node name="spawn_token_d295"  pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d295.urdf -wait token_d340 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d295  -x 0.0615 -y 0 -z 0.07" respawn="false" output="screen" />
-        <node name="spawn_token_d240"  pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d240.urdf -wait token_d295 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d240  -x 0.0615 -y 0 -z 0.08" respawn="false" output="screen" />
-        <node name="spawn_token_d200"  pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find gazebo_hanoi)/urdf/towers_of_hanoi_token_d200.urdf -wait token_d240 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d200  -x 0.0615 -y 0 -z 0.09" respawn="false" output="screen" />
+        <node name="spawn_token_d520"  pkg="gazebo_ros" type="spawn_model" args="-urdf -param hanoi_token_d520 -wait towers_of_hanoi_board -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d520  -x 0.0615 -y 0 -z 0.02" respawn="false" output="screen" />
+        <node name="spawn_token_d460"  pkg="gazebo_ros" type="spawn_model" args="-urdf -param hanoi_token_d460 -wait token_d520 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d460  -x 0.0615 -y 0 -z 0.03" respawn="false" output="screen" />
+        <node name="spawn_token_d395"  pkg="gazebo_ros" type="spawn_model" args="-urdf -param hanoi_token_d395 -wait token_d460 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d395  -x 0.0615 -y 0 -z 0.04" respawn="false" output="screen" />
+        <node name="spawn_token_d375"  pkg="gazebo_ros" type="spawn_model" args="-urdf -param hanoi_token_d375 -wait token_d395 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d375  -x 0.0615 -y 0 -z 0.05" respawn="false" output="screen" />
+        <node name="spawn_token_d340"  pkg="gazebo_ros" type="spawn_model" args="-urdf -param hanoi_token_d340 -wait token_d375 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d340  -x 0.0615 -y 0 -z 0.06" respawn="false" output="screen" />
+        <node name="spawn_token_d295"  pkg="gazebo_ros" type="spawn_model" args="-urdf -param hanoi_token_d295 -wait token_d340 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d295  -x 0.0615 -y 0 -z 0.07" respawn="false" output="screen" />
+        <node name="spawn_token_d240"  pkg="gazebo_ros" type="spawn_model" args="-urdf -param hanoi_token_d240 -wait token_d295 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d240  -x 0.0615 -y 0 -z 0.08" respawn="false" output="screen" />
+        <node name="spawn_token_d200"  pkg="gazebo_ros" type="spawn_model" args="-urdf -param hanoi_token_d200 -wait token_d240 -reference_frame towers_of_hanoi_board::towers_of_hanoi_board_base_link -model token_d200  -x 0.0615 -y 0 -z 0.09" respawn="false" output="screen" />
     </group>
 
     <node pkg="tf2_ros" type="static_transform_publisher" name="towers_of_hanoi_tf_broadcaster" args="$(arg board_x) $(arg board_y) $(arg board_z) $(arg board_Y) $(arg board_P) $(arg board_R) world towers_of_hanoi_board_link" />
@@ -49,3 +58,4 @@
     </group>
 
 </launch>
+
